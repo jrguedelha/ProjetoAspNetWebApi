@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjetoAspNetWebApi.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -7,7 +8,7 @@ using System.Web.Http;
 
 namespace ProjetoAspNetWebApi.Controller
 {
-    [RoutePrefix("api/meuprojeto")]
+    [RoutePrefix("api/pj")]
     public class DefaultController : ApiController
     {
         [HttpGet]
@@ -47,6 +48,20 @@ namespace ProjetoAspNetWebApi.Controller
                 if (cliente == null) throw new Exception("Cliente nao encontrado");
 
                 return Request.CreateResponse(HttpStatusCode.OK, cliente);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("cadastrar")]
+        public HttpResponseMessage PostCadastro(Cliente cliente)
+        {
+            try
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, "Cadastro do ususario " + cliente.Nome + " realizado,");
             }
             catch (Exception ex)
             {
